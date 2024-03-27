@@ -9,3 +9,6 @@ scipy==1.10.1
 seaborn==0.12.2
 six==1.16.0
 xgboost==1.7.6
+missingpy
+pygwalker
+missingno
