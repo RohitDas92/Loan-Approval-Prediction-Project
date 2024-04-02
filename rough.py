@@ -39,3 +39,19 @@ plt.title('Density Plot of Transformed Data')
 plt.show()
 
 #Code Block Ends
+
+
+def impute_nan_grouping_2_variables_median(df,variable_2_impute,grouping_variable_1,grouping_variable_2):
+    df[variable_2_impute+'_G2VM'] = df[variable_2_impute]
+    G2VM = df.groupby([grouping_variable_1,grouping_variable_2])[variable_2_impute].transform('median')
+    df[variable_2_impute+'_G2VM'] = df[variable_2_impute+'_G2VM'].fillna(G2VM)
+    
+    #If any value still have nan values we will impute it will with median values as it will be very negligible count
+    nan_left =  df[variable_2_impute+'_G2VM'].isnull().sum()
+    print(f'Number of nan values still left in {variable_2_impute+"_G2VM"} are {nan_left}')
+
+    if nan_left>0:
+        median_value = df[variable_2_impute].median()
+        df[variable_2_impute+'_G2VM'] = df[variable_2_impute+'_G2VM'].fillna(median_value)
+    else:
+        pass
